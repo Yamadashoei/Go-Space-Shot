@@ -1,15 +1,17 @@
 #pragma once
+#include "KamataEngine.h"
+
 #include "Enemy.h"
 #include "EnemyBullet.h"
-#include "KamataEngine.h"
 #include "Player.h"
 #include "PlayerBullet.h"
+
 #include "SceneState.h"
-#include "SkyDome.h"
 #include <list>
 
 class GameScene {
 public:
+	~GameScene();
 	void Initialize();
 	void Update();
 	void Draw();
@@ -23,20 +25,26 @@ private:
 	KamataEngine::Input* input_ = nullptr;
 	KamataEngine::Camera camera_;
 
-	// 2Dスプライト（背景・地球）
+	// 2D（未使用なら nullptr のままでOK）
 	KamataEngine::Sprite* sprBG_ = nullptr;
 	KamataEngine::Sprite* sprEarth_ = nullptr;
 
-	// 3D
-	SkyDome skydome_;
+	// モデル（Player用だけ保持。Enemyは自前でCreateFromOBJしている実装に合わせる）
+	KamataEngine::Model* modelPlayer_ = nullptr;
+
+	// 3Dオブジェクト
 	Player player_;
 	Enemy enemy_;
+
+	// GameSceneが管理する弾
 	std::list<PlayerBullet> pBullets_;
 	std::list<EnemyBullet> eBullets_;
 
 	// ロジック
-	float enemyShotInterval_ = 3.0f; // 敵は約3秒ごとに発射
-	// 2D時代の移動範囲を XZ 矩形に置換
+	// （EnemyのCanShoot()は固定5秒版を持っているが、明示間隔で使う場合はこれ）
+	float enemyShotInterval_ = 3.0f;
+
+	// 可動範囲（参考）
 	const float left_ = -12.0f;
 	const float right_ = +12.0f;
 	const float nearZ_ = 0.0f; // 奥
@@ -46,7 +54,10 @@ private:
 	bool next_ = false;
 	SceneState nextScene_ = SceneState::GameClear;
 
-	// 内部ヘルパ
+	// マウス左クリックのトリガ検出用（GameScene管理の弾）
+	bool mousePrev_ = false;
+
+private:
 	void SpawnPlayerBullet();
 	void SpawnEnemyBullet();
 	void HandleCollisions();
