@@ -1,10 +1,22 @@
 #include "GameOver.h"
+#include <base/TextureManager.h>
+using namespace KamataEngine;
+
+GameOver::~GameOver() {
+	delete sprBG_;
+	delete sprOver_;
+}
 
 void GameOver::Initialize() {
 	dx_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
-	camera_.Initialize();
-sprOver_ = Sprite::Create(TextureManager::Load("./Resources/Scene/gameover.png"), {0.0f, 0.0f});
+
+	// リソースは仮パス。あるものに合わせて変更してください
+	sprOver_ = Sprite::Create(TextureManager::Load("./Resources/Scene/gameover.png"), {640.0f, 360.0f});
+	sprOver_->SetAnchorPoint({0.5f, 0.5f});
+
+	next_ = false;
+	nextScene_ = SceneState::Title;
 }
 
 void GameOver::Update() {

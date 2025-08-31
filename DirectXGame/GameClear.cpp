@@ -1,11 +1,22 @@
 #include "GameClear.h"
+#include <base/TextureManager.h>
+using namespace KamataEngine;
+
+GameClear::~GameClear() {
+	delete sprBG_;
+	delete sprClear_;
+}
 
 void GameClear::Initialize() {
 	dx_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
-	camera_.Initialize();
 
-sprClear_ = Sprite::Create(TextureManager::Load("./Resources/Scene/clear.png"), {0.0f, 0.0f});
+	// リソースは仮パス。あるものに合わせて変更してください
+	sprClear_ = Sprite::Create(TextureManager::Load("./Resources/Scene/clear.png"), {640.0f, 360.0f});
+	sprClear_->SetAnchorPoint({0.5f, 0.5f});
+
+	next_ = false;
+	nextScene_ = SceneState::Title;
 }
 
 void GameClear::Update() {

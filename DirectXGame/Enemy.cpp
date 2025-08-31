@@ -6,13 +6,17 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	model_ = model;
 	wt_.Initialize();
 	wt_.translation_ = position;
-	//scale
 	wt_.UpdateMatrix();
 	wt_.TransferMatrix();
 
 	bullets_.clear();
 	shotTimerSec_ = 0.0f;
 	hp_ = 300;
+
+	// デフォルトの移動範囲は中心±12、右向きにスタート
+	moveLeft_ = -12.0f;
+	moveRight_ = +12.0f;
+	moveSpeedX_ = +6.0f; // 単位: /sec
 }
 
 void Enemy::SetPosition(const Vector3& pos) {
@@ -21,8 +25,37 @@ void Enemy::SetPosition(const Vector3& pos) {
 	wt_.TransferMatrix();
 }
 
+void Enemy::SetMoveBounds(float left, float right) {
+	if (left > right)
+		std::swap(left, right);
+	moveLeft_ = left;
+	moveRight_ = right;
+	// 範囲外なら内側に寄せる
+	if (wt_.translation_.x < moveLeft_)
+		wt_.translation_.x = moveLeft_;
+	if (wt_.translation_.x > moveRight_)
+		wt_.translation_.x = moveRight_;
+}
+
+void Enemy::SetSpeed(float unitsPerSec) {
+	// 0でもOK（静止）、正で右向き、負で左向き開始
+	moveSpeedX_ = unitsPerSec;
+}
+
 void Enemy::Update(const Vector3& playerPos, float deltaSec) {
-	// 5秒ごとにプレイヤー方向へ発射
+	// --- 左右往復移動 ---
+	wt_.translation_.x += moveSpeedX_ * deltaSec; // 秒間速度×経過秒
+
+	// 端で反転（食い込みを防いでから向きを反転）
+	if (wt_.translation_.x <= moveLeft_) {
+		wt_.translation_.x = moveLeft_;
+		moveSpeedX_ = std::abs(moveSpeedX_); // 右へ
+	} else if (wt_.translation_.x >= moveRight_) {
+		wt_.translation_.x = moveRight_;
+		moveSpeedX_ = -std::abs(moveSpeedX_); // 左へ
+	}
+
+	// --- 5秒ごとにプレイヤー方向へ発射 ---
 	shotTimerSec_ += deltaSec;
 	if (shotTimerSec_ >= shotIntervalSec_) {
 		shotTimerSec_ = 0.0f;
@@ -38,7 +71,7 @@ void Enemy::Update(const Vector3& playerPos, float deltaSec) {
 		Vector3 vel = dir * bulletSpeed_;
 
 		auto& b = bullets_.emplace_back();
-		b.Initialize(model_, spawn, vel); 
+		b.Initialize(model_, spawn, vel);
 	}
 
 	// 弾更新 & 寿命削除

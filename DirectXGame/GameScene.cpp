@@ -37,8 +37,8 @@ void GameScene::Initialize() {
 	camera_.UpdateMatrix();
 
 	// モデル
-	modelPlayer_ = Model::CreateFromOBJ("cube");
-	modelEnemy_ = Model::CreateFromOBJ("cube");
+	modelPlayer_ = Model::CreateFromOBJ("player");
+	modelEnemy_ = Model::CreateFromOBJ("enemy");
 
 	// 実体
 	player_ = new Player();
