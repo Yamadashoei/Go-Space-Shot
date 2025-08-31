@@ -4,8 +4,12 @@
 
 class EnemyBullet {
 public:
-	void Initialize(KamataEngine::Model* /*unused*/, const KamataEngine::Vector3& pos, const KamataEngine::Vector3& vel);
+	
+	void Initialize(KamataEngine::Model*, const KamataEngine::Vector3& pos, const KamataEngine::Vector3& vel);
+
+	
 	void Initialize(const KamataEngine::Vector3& pos);
+
 	void Initialize(const KamataEngine::Vector3& pos, const KamataEngine::Vector3& vel);
 
 	void Update();
@@ -13,7 +17,7 @@ public:
 
 	bool IsDead() const { return isDead_; }
 	bool IsAlive() const { return !isDead_; }
-	int GetDamage() const { return 50; }
+	int GetDamage() const { return 50; } // ★ダメージ50
 
 	const KamataEngine::Vector3& GetPos() const { return wt_.translation_; }
 	float GetRadius() const { return collision_.GetRadius(); }
@@ -30,6 +34,7 @@ private:
 	bool isDead_ = false;
 
 	Collision collision_;
+
 
 	static KamataEngine::Model* sModel_;
 };

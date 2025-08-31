@@ -1,4 +1,3 @@
-// SkyDome.cpp
 #include "SkyDome.h"
 
 void SkyDome::Initialize() {

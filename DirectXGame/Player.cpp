@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "kMath.h"
-#include <input/Input.h> // DIK_* / IsTriggerMouse
+#include <input/Input.h> 
 using namespace KamataEngine;
 
 void Player::Initialize(Model* model) {
@@ -8,7 +8,7 @@ void Player::Initialize(Model* model) {
 	input_ = Input::GetInstance();
 
 	wt_.Initialize();
-	// カメラが z=-10 から原点を見る前提なら z=0 でOK
+	// カメラが z=-10 
 	wt_.translation_ = {0.0f, 0.0f, 0.0f};
 	wt_.UpdateMatrix();
 	wt_.TransferMatrix();
@@ -23,7 +23,7 @@ void Player::SetPosition(const Vector3& pos) {
 }
 
 void Player::Update() {
-	// --- 移動（W/S: Y軸、A/D: X軸） ---
+	
 	if (input_->PushKey(DIK_A))
 		wt_.translation_.x -= moveSpeed_;
 	if (input_->PushKey(DIK_D))
@@ -33,22 +33,21 @@ void Player::Update() {
 	if (input_->PushKey(DIK_S))
 		wt_.translation_.y -= moveSpeed_;
 
-	// --- 発射（SPACE または 左クリック：トリガ） ---
+	// 発射（SPACE または 左クリック）
 	const bool trig = input_->TriggerKey(DIK_SPACE) || input_->IsTriggerMouse(0);
 	if (trig) {
 		// 自機のちょい前（Z+）から発射
 		KamataEngine::Vector3 spawn = wt_.translation_;
-		spawn.z += 0.6f; // マズルを少し前に
+		spawn.z += 0.6f; 
 
 		// 画面の奥へ（+Z 方向）
 		KamataEngine::Vector3 vel = {0.0f, 0.0f, bulletSpeed_};
 
 		auto& b = bullets_.emplace_back();
-		b.Initialize(spawn, vel); // PlayerBullet は OBJ "playerBullet" を内部共有ロード
-	}
+		b.Initialize(spawn, vel); }
 
 
-	// --- 弾の更新＆寿命で削除 ---
+	//弾の更新＆寿命で削除
 	for (auto& b : bullets_)
 		b.Update();
 	bullets_.remove_if([](const PlayerBullet& b) { return b.IsDead(); });

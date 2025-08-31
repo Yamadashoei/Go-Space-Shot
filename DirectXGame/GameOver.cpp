@@ -1,4 +1,3 @@
-// GameOver.cpp
 #include "GameOver.h"
 
 void GameOver::Initialize() {

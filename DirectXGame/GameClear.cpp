@@ -1,4 +1,3 @@
-// GameClear.cpp
 #include "GameClear.h"
 
 void GameClear::Initialize() {

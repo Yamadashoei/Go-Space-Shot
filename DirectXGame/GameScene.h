@@ -1,6 +1,7 @@
 #pragma once
-#include "Enemy.h"
 #include "KamataEngine.h"
+
+#include "Enemy.h"
 #include "Player.h"
 #include "SceneState.h"
 
@@ -14,9 +15,9 @@ public:
 	void Update();
 	void Draw();
 
-	// main.cpp のインタフェース（今は遷移なし）
-	bool IsNextSceneRequested() const { return false; }
-	SceneState GetNextScene() const { return SceneState::Title; }
+
+	bool IsNextSceneRequested() const { return next_; }
+	SceneState GetNextScene() const { return nextScene_; }
 
 private:
 	// 基盤
@@ -27,11 +28,22 @@ private:
 	// カメラ
 	Camera camera_;
 
-	// モデル（★GameScene で作る）
+	// モデル
 	Model* modelPlayer_ = nullptr;
 	Model* modelEnemy_ = nullptr;
 
 	// 実体
-	Player* player_;
-	Enemy* enemy_;
+	Player* player_ = nullptr;
+	Enemy* enemy_ = nullptr;
+
+	// シーン遷移
+	bool next_ = false;
+	SceneState nextScene_ = SceneState::Title;
+
+private:
+	// 当たり判定まとめ
+	void HandleCollisions();
+
+	// 球判定
+	static bool SphereHit(const Vector3& a, float ra, const Vector3& b, float rb);
 };

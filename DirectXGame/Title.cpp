@@ -1,4 +1,3 @@
-// Title.cpp
 #include "Title.h"
 
 void Title::Initialize() {

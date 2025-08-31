@@ -1,4 +1,3 @@
-// Rule.cpp
 #include "Rule.h"
 
 void Rule::Initialize() {

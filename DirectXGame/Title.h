@@ -1,4 +1,3 @@
-// Title.h
 #pragma once
 #include "KamataEngine.h"
 #include "SceneState.h"

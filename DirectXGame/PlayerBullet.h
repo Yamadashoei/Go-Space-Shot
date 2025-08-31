@@ -12,7 +12,9 @@ public:
 
 	bool IsDead() const { return isDead_; }
 	bool IsAlive() const { return !isDead_; }
-	int GetDamage() const { return 10; }
+
+	// ★ ダメージを 20 に
+	int GetDamage() const { return 20; }
 
 	const KamataEngine::Vector3& GetPos() const { return wt_.translation_; }
 	float GetRadius() const { return collision_.GetRadius(); }
