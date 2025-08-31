@@ -1,2 +1,2 @@
 #pragma once
-enum class SceneState : int { Title, Rule, Game, GameClear, GameOver };
+enum class SceneState { Title, Rule, Game, GameClear, GameOver };

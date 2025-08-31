@@ -1,47 +1,34 @@
 #pragma once
 #include "Collision.h"
 #include "KamataEngine.h"
-#include "kMath.h"
-#include <cassert>
-
-using namespace KamataEngine;
 
 class PlayerBullet {
 public:
-	// 互換：従来の呼び出しを壊さない（渡された model は使いません）
-	void Initialize(KamataEngine::Model* /*model*/, const KamataEngine::Vector3& position, const KamataEngine::Vector3& velocity);
-
-	// 新：直接 position/velocity だけで初期化（内部で cube を共有ロード）
-	void Initialize(const KamataEngine::Vector3& position, const KamataEngine::Vector3& velocity);
+	void Initialize(KamataEngine::Model* /*unused*/, const KamataEngine::Vector3& pos, const KamataEngine::Vector3& vel);
+	void Initialize(const KamataEngine::Vector3& pos, const KamataEngine::Vector3& vel);
 
 	void Update();
-	void Draw(const KamataEngine::Camera& viewProjection);
+	void Draw(const KamataEngine::Camera& vp);
 
-	// 状態
 	bool IsDead() const { return isDead_; }
-	bool IsAlive() const { return !isDead_; } // ★ 追加（GameSceneで使用）
+	bool IsAlive() const { return !isDead_; }
+	int GetDamage() const { return 10; }
+
+	const KamataEngine::Vector3& GetPos() const { return wt_.translation_; }
+	float GetRadius() const { return collision_.GetRadius(); }
 	const Collision& GetCollision() const { return collision_; }
 
-	// 位置・当たり
-	const KamataEngine::Vector3& GetPos() const { return worldTransform_.translation_; } // ★ 追加（GameSceneで使用）
-	float GetRadius() const { return collision_.GetRadius(); }                           // ★ 追加（GameSceneで使用）
-
-	// ダメージ
-	static constexpr int kDamage = 10;
-	int GetDamage() const { return kDamage; }
-
 private:
-	KamataEngine::WorldTransform worldTransform_;
+	KamataEngine::WorldTransform wt_{};
 	KamataEngine::Model* model_ = nullptr;
 
-	KamataEngine::Vector3 velocity_{};
+	KamataEngine::Vector3 vel_{};
 
-	static const int32_t kLifeTime = 60 * 5;
-	int32_t deathTimer_ = kLifeTime;
+	static constexpr int kLife = 60 * 5;
+	int life_ = kLife;
 	bool isDead_ = false;
 
 	Collision collision_;
 
-	// OBJを全弾で共有
 	static KamataEngine::Model* sModel_;
 };
