@@ -31,7 +31,7 @@ player_ = new Player();
 
 enemy_ = new Enemy(); 
 	enemy_->Initialize(modelEnemy_, {0.0f, 0.0f, 20.0f});
-	enemy_->SetPosition({0.0f, 0.0f, 15.0f}); // 奥
+	enemy_->SetPosition({0.0f, 0.0f, 40.0f}); // 奥
 }
 
 void GameScene::Update() {
@@ -54,7 +54,7 @@ void GameScene::Draw() {
 	dxCommon_->ClearDepthBuffer();
 
 	Model::PreDraw(); // ★引数付き
-	enemy_->Draw(camera_);
 	player_->Draw(camera_);
+	enemy_->Draw(camera_);
 	Model::PostDraw();
 }
