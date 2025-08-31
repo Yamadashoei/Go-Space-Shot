@@ -60,7 +60,7 @@ void GameScene::Initialize() {
 	playerHpUI_.Initialize(whiteTex_, {30.0f, 30.0f}, {220.0f, 18.0f});
 
 	// 敵の頭上にHPバー
-	enemyHpUI_.Initialize(whiteTex_, {100.0f, 8.0f}, {0.0f, 2.2f, 0.0f});
+	enemyHpUI_.Initialize(whiteTex_, {100.0f, 8.0f}, {0.0f, 3.0f, 0.0f});
 }
 
 void GameScene::Update() {
