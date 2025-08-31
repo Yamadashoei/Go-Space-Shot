@@ -23,6 +23,7 @@ public:
 	void Damage(int d) { hp_ = (hp_ - d < 0) ? 0 : hp_ - d; }
 	bool IsDead() const { return hp_ <= 0; }
 	int GetHP() const { return hp_; }
+	int GetMaxHP() const { return 300; }
 
 private:
 	KamataEngine::WorldTransform wt_{};

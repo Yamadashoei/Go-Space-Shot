@@ -52,6 +52,15 @@ void GameScene::Initialize() {
 	// 遷移フラグ初期化
 	next_ = false;
 	nextScene_ = SceneState::Title;
+
+	// HPバー
+	whiteTex_ = TextureManager::Load("./Resources/white1x1.png");
+
+	// 画面左上にプレイヤー HP
+	playerHpUI_.Initialize(whiteTex_, {30.0f, 30.0f}, {220.0f, 18.0f});
+
+	// 敵の頭上にHPバー
+	enemyHpUI_.Initialize(whiteTex_, {100.0f, 8.0f}, {0.0f, 2.2f, 0.0f});
 }
 
 void GameScene::Update() {
@@ -72,12 +81,20 @@ void GameScene::Update() {
 			nextScene_ = SceneState::GameOver;
 		}
 	}
+
+	// プレイヤーHP割合
+	playerHpUI_.SetRatio(static_cast<float>(player_->GetHP()) / player_->GetMaxHP());
+
+	// 敵HPバー用
+	enemyHpUI_.Update(enemy_->GetPosition(), camera_, enemy_->GetHP(), enemy_->GetMaxHP(), WinApp::kWindowWidth, WinApp::kWindowHeight);
 }
 
 void GameScene::Draw() {
 	ID3D12GraphicsCommandList* cmd = dxCommon_->GetCommandList();
 
 	Sprite::PreDraw(cmd);
+	playerHpUI_.Draw();
+	enemyHpUI_.Draw();
 	Sprite::PostDraw();
 
 	dxCommon_->ClearDepthBuffer();

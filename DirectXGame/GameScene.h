@@ -5,6 +5,10 @@
 #include "Player.h"
 #include "SceneState.h"
 
+#include "HpBar2D.h"
+#include "HpBarBillboard.h"
+
+
 using namespace KamataEngine;
 
 class GameScene {
@@ -39,6 +43,11 @@ private:
 	// シーン遷移
 	bool next_ = false;
 	SceneState nextScene_ = SceneState::Title;
+	
+	// HPバー
+	 uint32_t whiteTex_ = 0;
+	HpBar2D playerHpUI_;
+	HpBarBillboard enemyHpUI_;
 
 private:
 	// 当たり判定まとめ
