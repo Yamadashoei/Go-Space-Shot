@@ -11,7 +11,6 @@ void GameClear::Initialize() {
 	dx_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 
-	// リソースは仮パス。あるものに合わせて変更してください
 	sprClear_ = Sprite::Create(TextureManager::Load("./Resources/Scene/clear.png"), {640.0f, 360.0f});
 	sprClear_->SetAnchorPoint({0.5f, 0.5f});
 

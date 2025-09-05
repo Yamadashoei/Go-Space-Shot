@@ -4,7 +4,7 @@
 
 class PlayerBullet {
 public:
-	void Initialize(KamataEngine::Model* /*unused*/, const KamataEngine::Vector3& pos, const KamataEngine::Vector3& vel);
+	void Initialize(KamataEngine::Model* , const KamataEngine::Vector3& pos, const KamataEngine::Vector3& vel);
 	void Initialize(const KamataEngine::Vector3& pos, const KamataEngine::Vector3& vel);
 
 	void Update();
@@ -13,7 +13,7 @@ public:
 	bool IsDead() const { return isDead_; }
 	bool IsAlive() const { return !isDead_; }
 
-	// ★ ダメージを 20 に
+	// ★ ダメージ 20 
 	int GetDamage() const { return 20; }
 
 	const KamataEngine::Vector3& GetPos() const { return wt_.translation_; }

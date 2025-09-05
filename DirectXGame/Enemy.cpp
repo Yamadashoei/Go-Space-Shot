@@ -13,10 +13,10 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	shotTimerSec_ = 0.0f;
 	hp_ = 300;
 
-	// デフォルトの移動範囲は中心±12、右向きにスタート
+	
 	moveLeft_ = -12.0f;
 	moveRight_ = +12.0f;
-	moveSpeedX_ = +6.0f; // 単位: /sec
+	moveSpeedX_ = +6.0f; 
 }
 
 void Enemy::SetPosition(const Vector3& pos) {
@@ -38,7 +38,7 @@ void Enemy::SetMoveBounds(float left, float right) {
 }
 
 void Enemy::SetSpeed(float unitsPerSec) {
-	// 0でもOK（静止）、正で右向き、負で左向き開始
+	
 	moveSpeedX_ = unitsPerSec;
 }
 
@@ -46,7 +46,7 @@ void Enemy::Update(const Vector3& playerPos, float deltaSec) {
 	// --- 左右往復移動 ---
 	wt_.translation_.x += moveSpeedX_ * deltaSec; // 秒間速度×経過秒
 
-	// 端で反転（食い込みを防いでから向きを反転）
+	// 端で反転
 	if (wt_.translation_.x <= moveLeft_) {
 		wt_.translation_.x = moveLeft_;
 		moveSpeedX_ = std::abs(moveSpeedX_); // 右へ

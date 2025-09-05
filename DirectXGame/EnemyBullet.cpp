@@ -6,13 +6,13 @@ using namespace KamataEngine;
 // 静的メンバの実体
 Model* EnemyBullet::sModel_ = nullptr;
 
-void EnemyBullet::Initialize(Model* /*unused*/, const Vector3& pos, const Vector3& vel) { Initialize(pos, vel); }
+void EnemyBullet::Initialize(Model*, const Vector3& pos, const Vector3& vel) { Initialize(pos, vel); }
 
 void EnemyBullet::Initialize(const Vector3& pos) { Initialize(pos, Vector3{0.0f, 0.0f, +0.7f}); }
 
 void EnemyBullet::Initialize(const Vector3& pos, const Vector3& vel) {
 	if (!sModel_) {
-		// 弾用の obj 名。無ければ "cube" に変えてください
+		
 		sModel_ = Model::CreateFromOBJ("enemyBullet");
 	}
 	model_ = sModel_;

@@ -4,7 +4,7 @@ using namespace KamataEngine;
 
 Model* PlayerBullet::sModel_ = nullptr;
 
-void PlayerBullet::Initialize(Model* /*unused*/, const Vector3& pos, const Vector3& vel) { Initialize(pos, vel); }
+void PlayerBullet::Initialize(Model*, const Vector3& pos, const Vector3& vel) { Initialize(pos, vel); }
 
 void PlayerBullet::Initialize(const Vector3& pos, const Vector3& vel) {
 	if (!sModel_)

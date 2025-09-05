@@ -11,7 +11,6 @@ void GameOver::Initialize() {
 	dx_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 
-	// リソースは仮パス。あるものに合わせて変更してください
 	sprOver_ = Sprite::Create(TextureManager::Load("./Resources/Scene/gameover.png"), {640.0f, 360.0f});
 	sprOver_->SetAnchorPoint({0.5f, 0.5f});
 

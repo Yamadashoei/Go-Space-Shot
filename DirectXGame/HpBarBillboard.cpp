@@ -24,7 +24,7 @@ void HpBarBillboard::Update(const Vector3& worldPos, const Camera& cam, int hp, 
 
 	Vector2 sp = WorldToScreen(head, cam.matView, cam.matProjection, screenW, screenH);
 
-	// バーの「左端」を画面座標に設定（見た目は頭上中心にしたいので半分だけ左にずらす）
+	// バーの「左端」
 	float leftX = sp.x - size_.x * 0.5f;
 	float y = sp.y;
 

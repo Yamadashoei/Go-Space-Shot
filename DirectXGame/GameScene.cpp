@@ -71,7 +71,6 @@ void GameScene::Update() {
 	// 衝突
 	HandleCollisions();
 
-	// ===== 勝敗チェック → シーン遷移 =====
 	if (!next_) {
 		if (enemy_->IsDead()) {
 			next_ = true;
