@@ -87,7 +87,7 @@ static bool CheckAndTransit() {
 
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
-	KamataEngine::Initialize(L"LE3C_27_ヤマダ_ショウエイ");
+	KamataEngine::Initialize(L"LE3D_22_ヤマダ_ショウエイ");
 	DirectXCommon* dx = DirectXCommon::GetInstance();
 
 	// 最初のシーン
